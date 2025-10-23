@@ -17,19 +17,23 @@ except Exception as e:
     client = None
 
 
-def log_event(event_type: str, message: str):
+def log_event(event_type: str, message: str, level: str = "info", run_type: str = "tool"):
     """
     Logs an event locally and optionally sends it to LangSmith.
-    - event_type: short string (e.g., 'startup', 'request', 'error', 'model_call')
-    - message: human-readable description
+
+    Args:
+        event_type (str): short string (e.g., 'startup', 'request', 'error', 'model_call')
+        message (str): human-readable description
+        level (str): log level ('info', 'warning', 'error', 'debug')
+        run_type (str): LangSmith run type ('tool', 'chain', 'llm', 'retriever', etc.)
     """
     timestamp = datetime.utcnow().isoformat()
 
-    logger.info(f"[{event_type.upper()}] {message}")
+    log_method = getattr(logger, level, logger.info)
+    log_method(f"[{event_type.upper()}] {message}")
 
     if client:
         try:
-            run_type = "tool"  
             client.create_run(
                 name=event_type,
                 run_type=run_type,
