@@ -1,0 +1,7 @@
+Time blocking is a productivity method where specific blocks of your day are scheduled for defined tasks. Instead of multitasking, you allocate focused time for deep work, meetings, breaks, and reflection.
+
+Start by identifying your priorities, then design blocks around your natural energy cycles. Mornings can be for creative tasks, afternoons for meetings, and evenings for review. Always include buffer time to handle the unexpected.
+
+Tools like digital calendars or n8n reminders can automate these blocks and send notifications. Over time, time blocking creates a rhythm of intentional living — reducing decision fatigue and improving cognitive control.
+
+Neuraline can dynamically adjust your schedule based on emotional and behavioral patterns, ensuring your plans evolve with your mindset.

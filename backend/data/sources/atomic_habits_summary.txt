@@ -1,0 +1,9 @@
+James Clear’s “Atomic Habits” teaches that small, consistent changes compound into massive long-term results. The key lies in focusing on identity, systems, and feedback loops instead of goals alone.
+
+Core principles include:
+1. Make it obvious — design your environment to support desired behaviors.
+2. Make it attractive — associate habits with positive feelings.
+3. Make it easy — start small and reduce friction.
+4. Make it satisfying — reinforce completion with small rewards.
+
+Habits form identity. Every action casts a vote for the kind of person you want to become. The true power of habits lies not in intensity but in consistency — showing up even when motivation fades. Neuraline’s consistency agent reflects these principles to help users build lasting self-discipline.
