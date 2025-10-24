@@ -8,10 +8,9 @@ logger = logging.getLogger(__name__)
 
 class ModelRouter:
     """
-    Dynamically routes user prompts between LLMs (Gemini, Groq)
-    and integrates RAG context when applicable.
-    Intelligent model routing for Neuraline 
-    Routes prompts to the most suitable model based on intent and context.
+    Neuraline's Intelligent Model Router
+    Dynamically routes user prompts between Gemini and Groq LLMs,
+    integrating retrieval-augmented context and fallback recovery.
     """
 
     def __init__(self):
@@ -19,16 +18,20 @@ class ModelRouter:
         self.groq = GroqClient()
         self.retriever = ContextRetriever()
 
-    async def run(self, prompt: str) -> str:
+    async def run(self, query: str, task_type: str = None, **kwargs):
         """
-        Routes prompt intelligently between Gemini and Groq.
-        Includes fallback and lightweight task-type classification.
-        Injects retrieved context for reflection and reasoning tasks.
-        Includes fallback logic.
+        Core orchestration method.
+        - Classifies task type if not given.
+        - Retrieves RAG context when appropriate.
+        - Routes intelligently between Gemini and Groq.
+        - Includes graceful fallback and robust error handling.
         """
-        task_type = self._classify_task(prompt)
+        prompt = query 
+
+        if not task_type:
+            task_type = self._classify_task(prompt)
         log_event("MODEL_CALL", f"🧠 Task classified as: {task_type}")
-        
+
         context = ""
         if task_type in ["rag_query", "emotional_reflection", "cognitive_reasoning"]:
             try:
@@ -40,6 +43,7 @@ class ModelRouter:
                     prompt = f"Context:\n{context}\n\nUser Query:\n{prompt}"
             except Exception as e:
                 log_event("RAG_ERROR", f"⚠️ Context retrieval failed: {e}")
+                prompt = query  
 
         chosen_model = self._select_model(task_type)
         log_event("MODEL_CALL", f"🎯 Routing to {chosen_model.__class__.__name__} for {task_type}")
@@ -51,13 +55,16 @@ class ModelRouter:
             log_event("MODEL_ERROR", f"⚠️ Primary model failed: {e}")
             fallback = self._get_fallback(chosen_model)
             log_event("MODEL_FALLBACK", f"🔄 Switching to fallback: {fallback.__class__.__name__}")
-            return await fallback.generate(prompt)
-
+            try:
+                return await fallback.generate(prompt)
+            except Exception as e2:
+                log_event("MODEL_FAILSAFE", f"❌ Fallback also failed: {e2}")
+                return f"(local fallback) Unable to process with model. Prompt was: {prompt}"#
 
     def _classify_task(self, prompt: str) -> str:
         """
-        Heuristic-based lightweight task classifier.
-        Later this can be replaced with a small classification LLM.
+        Lightweight heuristic classifier for Neuraline's task taxonomy.
+        Will later evolve into a classification LLM.
         """
         p = prompt.lower()
 
@@ -76,7 +83,9 @@ class ModelRouter:
 
     def _select_model(self, task_type: str):
         """
-        Maps task type to preferred model according to Neuraline’s orchestration matrix.
+        Neuraline's model routing map.
+        Gemini → reflective, cognitive, and purpose-driven tasks.
+        Groq → behavioral, consistency, and general dialogue.
         """
         model_map = {
             "cognitive_reasoning": self.gemini,

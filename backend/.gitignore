@@ -8,3 +8,4 @@ chroma_storage/
 tests/
 data/chroma/
 data/chroma_memory/
+data/chroma_memory_test/
