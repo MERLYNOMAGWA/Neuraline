@@ -21,7 +21,6 @@ if "messages" not in st.session_state:
 st.title("🧠 Neuraline Chat")
 st.caption("Welcome to Neuraline — a space to reflect, refocus, and reconnect with your inner clarity.")
 
-
 chat_container = st.container()
 
 for msg in st.session_state.messages:
