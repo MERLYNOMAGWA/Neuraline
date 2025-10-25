@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.v1.routes import health, auth
+from app.api.v1.routes import health, auth, mcp, chat
 from app.core.config import settings
 from app.core.logging_config import log_event
 
@@ -16,6 +16,8 @@ app.add_middleware(
 
 app.include_router(health.router, prefix=f"{settings.api_v1_str}")
 app.include_router(auth.router, prefix=f"{settings.api_v1_str}")
+app.include_router(mcp.router, prefix="/api/v1/mcp", tags=["mcp"])
+app.include_router(chat.router, prefix="/api/v1/chat", tags=["Chat"])
 
 @app.on_event("startup")
 async def startup_event():
