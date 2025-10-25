@@ -104,7 +104,7 @@ FRONTEND_API_URL=http://localhost:8000/api/v1
 LOG_LEVEL=INFO
 ```
 
-<img src="assets/Screenshot 2025-10-25 202103.png" alt="Screenshot of the app interface" width="500"/>
+<img src="assets/Screenshot 2025-10-25 202103.png" alt="Screenshot of the app interface" width="900"/>
 
 ## 📚 API Endpoints (examples)
 
@@ -122,9 +122,9 @@ FastAPI auto-docs (Swagger): `GET /docs` when server runs.
 
 
 **Response:**
-<img src="assets/Screenshot 2025-10-25 202732.png" alt="Screenshot of the app interface" width="500"/>
+<img src="assets/Screenshot 2025-10-25 202732.png" alt="Screenshot of the app interface" width="900"/>
 
-<img src="assets/Screenshot 2025-10-25 202814.png" alt="Screenshot of the app interface" width="500"/>
+<img src="assets/Screenshot 2025-10-25 202814.png" alt="Screenshot of the app interface" width="900"/>
 
 ### POST /api/v1/mcp/run
 
