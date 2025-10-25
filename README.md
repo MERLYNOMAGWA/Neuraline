@@ -137,8 +137,10 @@ FastAPI auto-docs (Swagger): `GET /docs` when server runs.
   "roles": ["reflector","strategist","coach","purpose"]
 }
 ```
+<img src="assets/Screenshot 2025-10-25 203836.png" alt="Screenshot of the app interface" width="900"/>
 
-**Response:** structured results, combined and best_role object.
+**Response:** 
+<img src="assets/Screenshot 2025-10-25 203945.png" alt="Screenshot of the app interface" width="900"/>
 
 ## 🧠 RAG Pipeline (how it works)
 
